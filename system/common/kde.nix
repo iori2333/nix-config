@@ -23,6 +23,7 @@
     discover
     kate
     packagekit
+    libsForQt5.kirigami-addons
   ];
 
   services.packagekit.enable = true;

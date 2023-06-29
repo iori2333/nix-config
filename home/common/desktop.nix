@@ -12,5 +12,6 @@
     vlc
     handbrake
     telegram-desktop
+    zotero
   ];
 }
