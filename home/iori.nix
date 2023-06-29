@@ -4,6 +4,7 @@
   imports = [
     ./common/desktop.nix
     ./common/develop.nix
+    ./common/media.nix
   ];
 
   home = {
