@@ -5,20 +5,15 @@
     ./base-desktop.nix
   ];
 
-  programs.sway.enable = true;
-  xdg.portal.wlr.enable = true;
-
   services.xserver = {
     enable = true;
     displayManager = {
-      
       gdm = {
         enable = true;
         wayland = true;
       };
     };
     desktopManager = {
-      xterm.enable = false;
       gnome.enable = true;
     };
   };

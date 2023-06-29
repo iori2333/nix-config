@@ -11,6 +11,8 @@
     ../common/modules/zerotier.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   networking = {
     hostName = "iori-yoga14s";
     networkmanager.enable = true;

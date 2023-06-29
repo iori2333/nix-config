@@ -6,8 +6,6 @@
     ./modules/input.nix
   ];
 
-  nixpkgs.config.allowUnfree = lib.mkForce true;
-
   fonts = {
     enableDefaultFonts = false;
     fontDir.enable = true;
@@ -56,4 +54,19 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
+
+  services.xserver.excludePackages = with pkgs; [
+    xterm
+  ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-kde
+    ];
+  };
+
+  services.colord.enable = true;
+  services.geoclue2.enable = true;
 }

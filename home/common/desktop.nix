@@ -2,17 +2,15 @@
 
 {
   home.packages = with pkgs; [
-    qq
+    # qq
     firefox
     seafile-client
     yesplaymusic
-    libreoffice
+    libreoffice-qt
     qbittorrent
-    jetbrains-toolbox
     thunderbird
     vlc
     handbrake
-    timeshift
     telegram-desktop
   ];
 }
