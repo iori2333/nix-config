@@ -3,7 +3,7 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      # "https://mirrors.nju.edu.cn/nix-channels/store"
+      "https://mirror.nju.edu.cn/nix-channels/store"
       "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
