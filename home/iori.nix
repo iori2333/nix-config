@@ -5,6 +5,7 @@
     ./common/desktop.nix
     ./common/develop.nix
     ./common/media.nix
+    ./common/zsh.nix
   ];
 
   home = {

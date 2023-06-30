@@ -69,4 +69,5 @@
   ];
 
   environment.variables.EDITOR = "vim";
+  programs.zsh.enable = true;
 }

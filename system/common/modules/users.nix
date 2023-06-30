@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   users.groups = {
@@ -11,5 +11,6 @@
     isNormalUser = true;
     description = "Iori Ichinose";
     extraGroups = [ "iori" "users" "networkmanager" "sudo" "wheel" "docker" ];
+    shell = pkgs.zsh;
   };
 }
