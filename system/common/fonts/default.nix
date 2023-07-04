@@ -1,36 +1,38 @@
 { pkgs, ... }:
 
-{
+let
+  harmonyos-sans = pkgs.callPackage ./harmonyos-sans.nix { };
+  # use customized noto-fonts-cjk to avoid using variable fonts
+  noto-fonts-cjk-novf = pkgs.callPackage ./noto-fonts-cjk-novf.nix { };
+in {
     fonts = {
     fontDir.enable = true;
     enableDefaultFonts = true;
+
     fonts = with pkgs; [
       material-design-icons
 
       noto-fonts
       noto-fonts-emoji
 
-      source-sans
-      source-serif
-      source-han-sans
-      source-han-serif
-      source-han-mono
-      wqy_microhei
-
       fira-code
       jetbrains-mono
       cascadia-code
       iosevka
 
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
 
-      (pkgs.callPackage ./harmonyos-sans.nix { })
+      harmonyos-sans
+      noto-fonts-cjk-novf.sans
+      noto-fonts-cjk-novf.serif
+      wqy_microhei
     ];
 
+    # use chinese fonts as default for CJK support
     fontconfig.defaultFonts = {
-      serif = [ "Source Han Serif" ];
-      sansSerif = [ "Source Han Sans" ];
-      monospace = [ "FiraCode Nerd Font" "Source Han Mono" ];
+      serif = [ "Noto Serif CJK SC" ];
+      sansSerif = [ "Noto Sans CJK SC" ];
+      monospace = [ "Iosevka Nerd Font" "Noto Sans CJK SC" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
