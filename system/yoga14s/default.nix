@@ -6,12 +6,9 @@
     ../common/kde.nix
     ../common/modules/users.nix
     ../common/modules/flatpak.nix
-    ../common/modules/vms.nix
     ../common/modules/v2ray.nix
     ../common/modules/zerotier.nix
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   networking = {
     hostName = "iori-yoga14s";
@@ -27,7 +24,4 @@
   virtualisation.docker.storageDriver = "btrfs";
 
   system.stateVersion = "23.05";
-  services.zerotierone.joinNetworks = [
-    "a09acf023378ea18"
-  ];
 }

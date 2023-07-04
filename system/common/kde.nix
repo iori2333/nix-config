@@ -18,24 +18,25 @@
     print-manager
   ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.libsForQt5; [
     ark
     discover
     kate
-    packagekit
-    libsForQt5.kirigami-addons
+    packagekit-qt
+    filelight
   ];
 
   services.packagekit.enable = true;
+
   # Fix fcitx5 on wayland session https://github.com/NixOS/nixpkgs/issues/129442
-    environment.sessionVariables = {
-      NIX_PROFILES =
-        "${lib.concatStringsSep " " (lib.reverseList config.environment.profiles)}";
-      GTK_IM_MODULE = "fcitx";
-      QT_IM_MODULE = "fcitx";
-      XMODIFIERS = "@im=fcitx";
-    };
-  
+  environment.sessionVariables = {
+    NIX_PROFILES =
+      "${lib.concatStringsSep " " (lib.reverseList config.environment.profiles)}";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+  };
+
   programs.kdeconnect.enable = true;
   programs.partition-manager.enable = true;
 }

@@ -1,16 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  ###################################################################################
-  #
-  #  Copy from https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
-  #  Mainly for flatpak
-  #    1. bindfs resolves all symlink, 
-  #    2. allowing all fonts to be accessed at `/usr/share/fonts`
-  #    3. without letting /nix into the sandbox.
-  #
-  ###################################################################################
+  services.flatpak.enable = true;
 
+  # Fix font and icons for flatpak:
+  # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = lib.mapAttrs
     (_: v: v // {
@@ -26,6 +20,4 @@
           pathsToLink = [ "/share/fonts" ];
         } + "/share/fonts";
     };
-  
-  services.flatpak.enable = true;
 }

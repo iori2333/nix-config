@@ -70,4 +70,5 @@
 
   environment.variables.EDITOR = "vim";
   programs.zsh.enable = true;
+  virtualisation.docker.enable = true;
 }
