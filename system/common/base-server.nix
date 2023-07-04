@@ -12,7 +12,7 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = ["iori"];
+      trusted-users = [ "iori" ];
     };
   };
   nixpkgs.config.allowUnfree = lib.mkDefault false;
@@ -55,6 +55,7 @@
     tmux
     gnumake
     gcc
+    unar
 
     (
       let base = pkgs.appimageTools.defaultFhsEnvArgs; in

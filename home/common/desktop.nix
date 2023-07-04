@@ -12,5 +12,6 @@
     zotero
     remmina
     freerdp
+    qq
   ];
 }
