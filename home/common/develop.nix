@@ -14,7 +14,7 @@
     clang-tools_16
     rustup
     go
-    opam
+    # opam # opam monorepo doesn't work well on NixOS
     jdk
     python3
     docker-compose

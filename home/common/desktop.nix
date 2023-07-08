@@ -11,7 +11,6 @@
     telegram-desktop
     zotero
     remmina
-    freerdp
     qq
   ];
 }

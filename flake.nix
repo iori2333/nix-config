@@ -3,6 +3,7 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
+      "https://mirror.sjtu.edu.cn/nix-channels/store/"
       "https://mirror.nju.edu.cn/nix-channels/store"
       "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
@@ -31,7 +32,7 @@
     let
       x64_system = "x86_64-linux";
       x64_specialArgs = {
-        pkgs-unstable = import inputs.nixpkgs-unstable {
+        pkgs-unstable = import inputs.nixpkgs {
           system = x64_system;
           config.allowUnfree = true;
         };
