@@ -10,7 +10,6 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-c10AIlce3WSqzKI9cq9LoobRJHgbqnzBo/d958Acz/A=";
   };
 
-  # only extract the variable font because everything else is a duplicate
   installPhase = ''
     runHook preInstall
 

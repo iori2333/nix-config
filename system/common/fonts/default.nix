@@ -2,8 +2,9 @@
 
 let
   harmonyos-sans = pkgs.callPackage ./harmonyos-sans.nix { };
-  # use customized noto-fonts-cjk to avoid using variable fonts
+  # using custom build configs to avoid using variable fonts
   noto-fonts-cjk-novf = pkgs.callPackage ./noto-fonts-cjk-novf.nix { };
+  fira-code-novf = pkgs.callPackage ./fira-code-novf.nix { };
 in {
     fonts = {
     fontDir.enable = true;
@@ -15,7 +16,7 @@ in {
       noto-fonts
       noto-fonts-emoji
 
-      fira-code
+      fira-code-novf
       jetbrains-mono
       cascadia-code
       iosevka
@@ -30,9 +31,9 @@ in {
 
     # use chinese fonts as default for CJK support
     fontconfig.defaultFonts = {
-      serif = [ "Noto Serif CJK SC" ];
-      sansSerif = [ "Noto Sans CJK SC" ];
-      monospace = [ "Iosevka Nerd Font" "Noto Sans CJK SC" ];
+      serif = [ "Noto Serif CJK SC" "Noto Color Emoji" ];
+      sansSerif = [ "Noto Sans CJK SC" "Noto Color Emoji" ];
+      monospace = [ "Iosevka Nerd Font" "Noto Sans CJK SC" "Noto Color Emoji" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
