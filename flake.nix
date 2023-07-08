@@ -17,43 +17,51 @@
   };
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
+    hardware.url = "github:nixos/nixos-hardware";
+    nix-colors.url = "github:misterio77/nix-colors";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprwm-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
+      inherit (self) outputs;
+      arm64_system = "aarch64-linux";
       x64_system = "x86_64-linux";
-      x64_specialArgs = {
-        pkgs-unstable = import inputs.nixpkgs {
-          system = x64_system;
-          config.allowUnfree = true;
-        };
-      } // inputs;
-      yoga14s_modules = [
-        ./system/yoga14s
-        home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.iori = import ./home/iori.nix;
-          home-manager.extraSpecialArgs = x64_specialArgs;
-        }
-      ];
+      systems = [ x64_system arm64_system ];
+      pkgsFor = nixpkgs.legacyPackages;
+      forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
+      lib = nixpkgs.lib // home-manager.lib;
     in {
-      nixosConfigurations = let
-        system = x64_system;
-        specialArgs = x64_specialArgs;
-      in {
-        "iori-yoga14s" = nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
-          modules = yoga14s_modules;
+      inherit lib;
+
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+
+      homeManagerModules = [
+        ./modules/font-profiles.nix
+      ];
+
+      nixosConfigurations = {
+        mika = lib.nixosSystem {
+          modules = [ ./hosts/mika ];
+          specialArgs = { inherit inputs outputs; };
+        };
+      };
+
+      homeConfigurations = {
+        "iori@mika" = lib.homeManagerConfiguration {
+          modules = [ ./homes/iori/mika.nix ];
+          pkgs = nixpkgs.legacyPackages.${x64_system};
+          extraSpecialArgs = { inherit inputs outputs; };
         };
       };
     };
